@@ -41,7 +41,7 @@ const SearchProduct = () => {
       fetchResults(value);
     }, 2000);
 
-    setDebounceTimeout(timeout || 2000);
+    setDebounceTimeout(timeout);
   };
 
   return (
