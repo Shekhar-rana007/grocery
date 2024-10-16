@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-
+interface Product {
+  _id: string;
+  name: string;
+  price: string;
+  weight: string;
+  color: string;
+  category: string;
+}
 const AllProducts = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]); 
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const fetchProducts = async () => {

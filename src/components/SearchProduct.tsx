@@ -1,23 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
+interface Product {
+  _id: string;
+  name: string;
+  price: string;
+  weight: string;
+  color: string;
+  category: string;
+}
 
 const SearchProduct = () => {
   const [keyword, setKeyword] = useState('');
-  const [results, setResults] = useState([]);
-  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [results, setResults] = useState<Product[]>([]); 
+  const [debounceTimeout, setDebounceTimeout] = useState(null);
 
-  // Function to fetch the API when keyword has 3 or more letters
   const fetchResults = async (searchKeyword: string) => {
     if (searchKeyword.length >= 3) {
       try {
         const response = await fetch(`http://localhost:8000/api/v1/products/globalsearch?keyword=${searchKeyword}`);
         const data = await response.json();
-        setResults(data.data || []);
+        setResults(data.data || []); 
       } catch (error) {
         console.error('Error fetching the search results:', error);
-        setResults([]); // Reset results if error occurs
+        setResults([]); 
       }
     } else {
-      setResults([]); // Reset results if keyword is less than 3 characters
+      setResults([]); 
     }
   };
 
@@ -31,14 +39,14 @@ const SearchProduct = () => {
 
     const timeout = setTimeout(() => {
       fetchResults(value);
-    }, 2000); 
+    }, 2000);
 
-    setDebounceTimeout(timeout);
+    setDebounceTimeout(timeout || 2000);
   };
 
   return (
     <div className="p-4 flex flex-col gap-3 max-w-lg mx-auto">
-      <p className='p-3 bg-gray-100 '>Please enter 3 letters to search Product</p>
+      <p className="p-3 bg-gray-100">Please enter 3 letters to search Product</p>
       <form onSubmit={(e) => e.preventDefault()} className="mb-4">
         <input
           type="text"
@@ -50,11 +58,11 @@ const SearchProduct = () => {
         />
       </form>
 
-      {results.length > 0 ? (
+      {results && results.length > 0 ? (
         <ul className="space-y-2">
           {results.map((product) => (
             <li
-              key={product._id}
+              key={product?._id}
               className="p-4 border border-gray-200 rounded shadow-sm bg-white flex justify-between items-center"
             >
               <div>
