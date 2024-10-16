@@ -15,7 +15,6 @@ console.log("product",product)
     setProduct((prev) => ({ ...prev, [name]: value }));
 
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 console.log("product",product)
@@ -29,7 +28,6 @@ try {
     });
 
     const outputresponse = await response.json();
-    console.log("outputresponse",outputresponse);
     if(outputresponse.success){
         toast.success(outputresponse.message)
          setProduct({
@@ -49,15 +47,15 @@ try {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center p-12 bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold mb-4 text-center">Create Product</h2>
-        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Product Name</label>
             <input
               type="text"
               name="name"
+              value={product.name}
               placeholder="Enter product name"
               onChange={handleChange}
               required
@@ -67,8 +65,10 @@ try {
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Price</label>
             <input
-              type="number"
+              type="text"
               name="price"
+              value={product.price}
+
               placeholder="Enter price"
               onChange={handleChange}
               required
@@ -79,7 +79,9 @@ try {
             <label className="block text-sm font-medium text-gray-700">Weight</label>
             <input
               type="text"
-              name="weight"
+              name="weight"              value={product.weight}
+
+
               placeholder="Enter weight"
               onChange={handleChange}
               required
@@ -91,6 +93,8 @@ try {
             <input
               type="text"
               name="color"
+                            value={product.color}
+
               placeholder="Enter color"
               onChange={handleChange}
               required
@@ -102,19 +106,21 @@ try {
             <input
               type="text"
               name="category"
+
               placeholder="Enter category"
               onChange={handleChange}
               required
+              value={product.category}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
             />
           </div>
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full bg-blue-600 text-white font-bold py-2 rounded-md hover:bg-blue-700 transition duration-200"
           >
             Create Product
           </button>
-        </form>
       </div>
     </div>
   );

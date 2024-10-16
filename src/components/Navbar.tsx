@@ -12,6 +12,9 @@ const Navbar = () => {
         <li style={styles.navItem}>
           <Link to="/search" style={styles.navLink}>Search Product</Link>
         </li>
+        <li style={styles.navItem}>
+          <Link to="/allproducts" style={styles.navLink}>Products</Link>
+        </li>
       </ul>
     </nav>
   );
